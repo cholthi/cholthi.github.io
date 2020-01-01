@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.63.0-DEV" />
+		<title>Listing Dependencies of Packages - Chol Paul</title>
+
+		<meta name="description" content="There is a fantastic tool in the Go eco system called go list. This tool uses Go template package and comes with comes a set of predefined template variables we can use to format its output.
+Here we will use it to list the dependencies of our local package.
+Lets assume we are working on html scrapping package called scrappy
+Listing all packages $ go list -f &#39;{{ .Imports }}&#39; github.">
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/ocean.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+		
+		
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about">About</a></li><li><a href="/post/">Post</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Listing Dependencies of Packages</h1>
+	<h5>
+		
+		<time datetime="2019-06-10 12:42:05 &#43;0300 EAT">Jun 10, 2019</time>
+		<span class="no-print">
+			-
+				
+				<a href="/tags/Golang">Golang</a>
+				
+				<a href="/tags/Software%20development">Software development</a>
+				<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	<p>There is a fantastic tool in the Go eco system called go list. This tool uses Go template package and comes with comes a set of predefined template variables we can use to format its output.</p>
+<p>Here we will use it to list the dependencies of our local package.</p>
+<p>Lets assume we are working on html scrapping package called <code>scrappy</code></p>
+<h3 id="listing-all-packages">Listing all packages</h3>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"> <span class="err">$</span> <span class="k">go</span> <span class="nx">list</span> <span class="o">-</span><span class="nx">f</span> <span class="err">&#39;</span><span class="p">{</span><span class="p">{</span> <span class="p">.</span><span class="nx">Imports</span> <span class="p">}</span><span class="p">}</span><span class="err">&#39;</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">cholthi</span><span class="o">/</span><span class="nx">scrappy</span>
+<span class="p">[</span><span class="nx">encoding</span><span class="o">/</span><span class="nx">json</span> <span class="nx">flag</span> <span class="nx">fmt</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gocolly</span><span class="o">/</span><span class="nx">colly</span> <span class="nx">os</span> <span class="nx">os</span><span class="o">/</span><span class="nx">signal</span> <span class="nx">strings</span> <span class="nx">syscall</span><span class="p">]</span>
+</code></pre></div><p>Those are the packages my scrappy package depend. Some people would like each dependency to appear on its own line. To do that,<code>go list</code> has a template function called <code>join</code> which is just an alias for builtin <code>String.Join</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="err">$</span> <span class="k">go</span> <span class="nx">list</span> <span class="o">-</span><span class="nx">f</span> <span class="err">&#39;</span><span class="p">{</span><span class="p">{</span> <span class="nx">join</span> <span class="p">.</span><span class="nx">Imports</span> <span class="s">&#34;\n&#34;</span> <span class="p">}</span><span class="p">}</span><span class="err">&#39;</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">cholthi</span><span class="o">/</span><span class="nx">scrappy</span>
+<span class="nx">encoding</span><span class="o">/</span><span class="nx">json</span>
+<span class="nx">flag</span>
+<span class="nx">fmt</span>
+<span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gocolly</span><span class="o">/</span><span class="nx">colly</span>
+<span class="nx">os</span>
+<span class="nx">os</span><span class="o">/</span><span class="nx">signal</span>
+<span class="nx">strings</span>
+<span class="nx">syscall</span>
+</code></pre></div><p>For this and more on <code>go list</code>, check out this good blog <a href="https://dave.cheney.net/2014/09/14/go-list-your-swiss-army-knife">post</a></p>
+
+</article>
+<div class="about">
+    <img src="/img/author.jpeg" alt="Philip Chol Image" width="80" height="80">
+    <h3>Author: &nbsp;Chol Paul</h3>
+    <p> Chol&#39;s personal blog. He writes about software engineering, life and everything in between.</p>
+</div>
+
+<style>
+.about {
+    border: 3px solid #a1d0f6;
+    border-radius: 2px;
+    background-color: #f1f8fe;
+    padding: 14px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+.about img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    margin-right: 15px;
+    border: 1px solid #a1d0f6;
+}
+
+.about h3 {
+    margin: 2px 0 4px;
+    line-height: 20px;
+    font-family: lato,helvetica neue,Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 20px;
+    letter-spacing: 0;
+}
+
+.about p {
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: .9em;
+    clear: right;
+}
+
+</style>
+
+<nav class="no-print post-nav">
+
+
+	<a class="next-post" href="/blog/go-slice-expressions/">Go Slice Expressions<img class="icon-text" src="/img/next.svg"/>
+	</a>
+
+</nav>
+
+
+
+
+	
+
+<script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="url"
+        label=""
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'cholthi.github.io';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:cholthipaul@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/cholthi/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://twitter.com/cholthipaul"><img class="icon-social" src="/img/twitter.svg" alt="Twitter"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2019 Chol Paul
+					
+					
+					| <a href="http://creativecommons.org/licenses/by/4.0/">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+		
+	</body>
+</html>
+

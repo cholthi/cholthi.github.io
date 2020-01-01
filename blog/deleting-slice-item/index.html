@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.63.0-DEV" />
+		<title>Deleting Slice Item - Chol Paul</title>
+
+		<meta name="description" content="n Go, a slice is a fundamental data structure, it is a mutable Homogeneous array. It can grow and shrink at run time according to the needs of application.You can think of as it as Vector class if you’re coming from a Java background.
+Often time while working with slices, you would like to add elements to a slice.
+var s []string = make([]string, 0) s = append(s,&#39;cairo&#39;) // adds to the end Today, I want to share a common idiom in Go on how to remove an element by its index.">
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/ocean.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+		
+		
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about">About</a></li><li><a href="/post/">Post</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Deleting Slice Item</h1>
+	<h5>
+		
+		<time datetime="2019-10-24 13:08:45 &#43;0300 EAT">Oct 24, 2019</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	<p>n Go, a slice is a fundamental data structure, it is a mutable Homogeneous array. It can grow and shrink at run time according to the needs of application.You can think of as it as Vector class if you’re coming from a <code>Java</code> background.</p>
+<p>Often time while working with slices, you would like to add elements to a slice.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"> <span class="kd">var</span> <span class="nx">s</span> <span class="p">[</span><span class="p">]</span><span class="kt">string</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="err">&#39;</span><span class="nx">cairo</span><span class="err">&#39;</span><span class="p">)</span> <span class="c1">// adds to the end
+</span></code></pre></div><p>Today, I want to share a common idiom in Go on how to remove an element by its index.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">banku</span> <span class="o">:=</span> <span class="mi">1</span> <span class="c1">//index to delete
+</span><span class="c1"></span>   <span class="kd">var</span> <span class="nx">s</span> <span class="p">[</span><span class="p">]</span><span class="kt">string</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="p">[</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+     <span class="nx">cities</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="s">&#34;Nairobi,Banku,Cairo,Lagos&#34;</span><span class="p">,</span><span class="s">&#34;,&#34;</span><span class="p">)</span>
+   <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">cities</span><span class="o">...</span><span class="p">)</span> <span class="c1">// appending a slice to another slice
+</span><span class="c1"></span>
+ <span class="k">for</span> <span class="nx">index</span><span class="p">,</span><span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="nx">index</span> <span class="o">==</span> <span class="nx">banku</span> <span class="p">{</span>
+     <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="p">:</span><span class="nx">index</span><span class="p">]</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">index</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="p">]</span><span class="p">)</span> <span class="c1">// delete element matching `index`
+</span><span class="c1"></span>   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>There are many ways to go about deleting a slice element, but i find this to be easy and is the one I like to use.</p>
+<p>Happy coding!</p>
+
+</article>
+<div class="about">
+    <img src="/img/author.jpeg" alt="Philip Chol Image" width="80" height="80">
+    <h3>Author: &nbsp;Chol Paul</h3>
+    <p> Chol&#39;s personal blog. He writes about software engineering, life and everything in between.</p>
+</div>
+
+<style>
+.about {
+    border: 3px solid #a1d0f6;
+    border-radius: 2px;
+    background-color: #f1f8fe;
+    padding: 14px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+.about img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    margin-right: 15px;
+    border: 1px solid #a1d0f6;
+}
+
+.about h3 {
+    margin: 2px 0 4px;
+    line-height: 20px;
+    font-family: lato,helvetica neue,Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 20px;
+    letter-spacing: 0;
+}
+
+.about p {
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: .9em;
+    clear: right;
+}
+
+</style>
+
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/blog/go-slice-expressions/">
+		<img class="icon-text" src="/img/prev.svg"/>Go Slice Expressions</a>
+
+
+</nav>
+
+
+
+
+	
+
+<script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="url"
+        label=""
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'cholthi.github.io';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:cholthipaul@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/cholthi/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://twitter.com/cholthipaul"><img class="icon-social" src="/img/twitter.svg" alt="Twitter"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2019 Chol Paul
+					
+					
+					| <a href="http://creativecommons.org/licenses/by/4.0/">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+		
+	</body>
+</html>
+

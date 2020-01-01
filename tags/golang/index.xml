@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on Chol Paul</title>
+    <link>/tags/golang/</link>
+    <description>Recent content in Golang on Chol Paul</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2019 Chol Paul</copyright>
+    <lastBuildDate>Mon, 10 Jun 2019 12:42:05 +0300</lastBuildDate>
+    
+	<atom:link href="/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Listing Dependencies of Packages</title>
+      <link>/blog/listing-dependencies-of-packages/</link>
+      <pubDate>Mon, 10 Jun 2019 12:42:05 +0300</pubDate>
+      
+      <guid>/blog/listing-dependencies-of-packages/</guid>
+      <description>There is a fantastic tool in the Go eco system called go list. This tool uses Go template package and comes with comes a set of predefined template variables we can use to format its output.
+Here we will use it to list the dependencies of our local package.
+Lets assume we are working on html scrapping package called scrappy
+Listing all packages $ go list -f &amp;#39;{{ .Imports }}&amp;#39; github.</description>
+    </item>
+    
+  </channel>
+</rss>

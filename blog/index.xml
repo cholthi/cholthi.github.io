@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Chol Paul</title>
+    <link>/blog/</link>
+    <description>Recent content in Blog on Chol Paul</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&amp;copy; 2019 Chol Paul</copyright>
+    <lastBuildDate>Sun, 02 Jul 2017 08:14:51 +0700</lastBuildDate>
+    
+	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deleting Slice Item</title>
+      <link>/blog/deleting-slice-item/</link>
+      <pubDate>Thu, 24 Oct 2019 13:08:45 +0300</pubDate>
+      
+      <guid>/blog/deleting-slice-item/</guid>
+      <description>n Go, a slice is a fundamental data structure, it is a mutable Homogeneous array. It can grow and shrink at run time according to the needs of application.You can think of as it as Vector class if you’re coming from a Java background.
+Often time while working with slices, you would like to add elements to a slice.
+var s []string = make([]string, 0) s = append(s,&amp;#39;cairo&amp;#39;) // adds to the end Today, I want to share a common idiom in Go on how to remove an element by its index.</description>
+    </item>
+    
+    <item>
+      <title>Go Slice Expressions</title>
+      <link>/blog/go-slice-expressions/</link>
+      <pubDate>Fri, 09 Aug 2019 12:57:11 +0300</pubDate>
+      
+      <guid>/blog/go-slice-expressions/</guid>
+      <description>Go allows operation on slices to extract part of its elements using a beautiful syntax. Go calls it Slice Expressions.
+var s []Type s[low:high] Here is how the official Go langange specs define Slice Expressions.
+ For a string, array, pointer to array, or slice a, the primary expression a[low : high] constructs a substring or slice. The indices low and high select which elements of operand a appear in the result.</description>
+    </item>
+    
+    <item>
+      <title>Listing Dependencies of Packages</title>
+      <link>/blog/listing-dependencies-of-packages/</link>
+      <pubDate>Mon, 10 Jun 2019 12:42:05 +0300</pubDate>
+      
+      <guid>/blog/listing-dependencies-of-packages/</guid>
+      <description>There is a fantastic tool in the Go eco system called go list. This tool uses Go template package and comes with comes a set of predefined template variables we can use to format its output.
+Here we will use it to list the dependencies of our local package.
+Lets assume we are working on html scrapping package called scrappy
+Listing all packages $ go list -f &amp;#39;{{ .Imports }}&amp;#39; github.</description>
+    </item>
+    
+  </channel>
+</rss>
