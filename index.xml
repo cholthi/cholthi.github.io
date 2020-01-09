@@ -18,8 +18,8 @@
       
       <guid>/blog/explicit-arguments-indexes-with-fmt-package/</guid>
       <description>Golang has a very handy package called fmt for formating data values.
-fmt.Printf(&amp;#34;Hello %s&amp;#34;, &amp;#34;world&amp;#34;) // Hello World But by default, the fmt family of functions work by successively applying args passed after the format string to matching format verbs by position. The position starts from index 1 instead of 0 probably because the format string is the zeroth argument to fmt functions.
-tablePrefix := &amp;#34;mydb&amp;#34; query := fmt.Sprintf(&amp;#34;SELECT %s_table1.*, %s_table2.</description>
+fmt.Printf(&amp;#34;Hello %s&amp;#34;, &amp;#34;world&amp;#34;) // Hello World But by default, the fmt family of functions work by successively applying args passed after the format string to matching format verbs by argument order.
+tablePrefix := &amp;#34;mydb&amp;#34; query := fmt.Sprintf(&amp;#34;SELECT %s_table1.*, %s_table2.id from %s_table1 left join %s_table2 on %s_table2.id = %s_table1.id;&amp;#34;,tablePrefix, tablePrefix, tablePrefix, tablePrefix, tablePrefix) fmt.Print(query) // SELECT mydb_table1.*, mydb_table2.id from mydb_table1 left join mydb_table2 on mydb_table2.</description>
     </item>
     
     <item>

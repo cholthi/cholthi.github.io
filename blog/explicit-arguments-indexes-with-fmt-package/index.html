@@ -7,8 +7,8 @@
 		<title>Explicit Arguments Indexes With Fmt Package - Chol Paul</title>
 
 		<meta name="description" content="Golang has a very handy package called fmt for formating data values.
-fmt.Printf(&#34;Hello %s&#34;, &#34;world&#34;) // Hello World But by default, the fmt family of functions work by successively applying args passed after the format string to matching format verbs by position. The position starts from index 1 instead of 0 probably because the format string is the zeroth argument to fmt functions.
-tablePrefix := &#34;mydb&#34; query := fmt.Sprintf(&#34;SELECT %s_table1.*, %s_table2.">
+fmt.Printf(&#34;Hello %s&#34;, &#34;world&#34;) // Hello World But by default, the fmt family of functions work by successively applying args passed after the format string to matching format verbs by argument order.
+tablePrefix := &#34;mydb&#34; query := fmt.Sprintf(&#34;SELECT %s_table1.*, %s_table2.id from %s_table1 left join %s_table2 on %s_table2.id = %s_table1.id;&#34;,tablePrefix, tablePrefix, tablePrefix, tablePrefix, tablePrefix) fmt.Print(query) // SELECT mydb_table1.*, mydb_table2.id from mydb_table1 left join mydb_table2 on mydb_table2.">
 
 
 		
@@ -64,7 +64,7 @@ tablePrefix := &#34;mydb&#34; query := fmt.Sprintf(&#34;SELECT %s_table1.*, %s_t
 </header>
 	<p>Golang has a very handy package called <code>fmt</code> for formating data values.</p>
 <div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hello %s&#34;</span><span class="p">,</span> <span class="s">&#34;world&#34;</span><span class="p">)</span> <span class="c1">// Hello World
-</span></code></pre></div><p>But by default, the <code>fmt</code> family of functions work by successively applying args passed after the format string to matching format verbs by position. The position starts from index <code>1</code> instead of <code>0</code> probably because the format string is the zeroth argument to fmt functions.</p>
+</span></code></pre></div><p>But by default, the <code>fmt</code> family of functions work by successively applying args passed after the format string to matching format verbs by argument order.</p>
 <div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">tablePrefix</span> <span class="o">:=</span> <span class="s">&#34;mydb&#34;</span>
 
 <span class="nx">query</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;SELECT %s_table1.*, %s_table2.id from %s_table1 left join %s_table2 on %s_table2.id = %s_table1.id;&#34;</span><span class="p">,</span><span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">)</span>
@@ -89,7 +89,10 @@ the notation <code>[n]</code> immediately before the verb indicates that the nth
 <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 
 <span class="c1">// SELECT mydb_table1.*, mydb_table2.id from mydb_table1 left join mydb_table2 on mydb_table2.id = mydb_table1.id;
-</span></code></pre></div><p>Such a simple tricks is easy to forget and I am putinng it here as a reminder to my self when I need it and I also hope someone in future may find it helpful too.</p>
+</span></code></pre></div><blockquote>
+<p>The position starts from index <code>1</code> instead of <code>0</code> probably because the format string is the zeroth argument to fmt functions.</p>
+</blockquote>
+<p>Such a simple tricks is easy to forget and I am putinng it here as a reminder to my self when I need it and I also hope someone in future may find it helpful too.</p>
 <p>Happy coding!</p>
 
 </article>
