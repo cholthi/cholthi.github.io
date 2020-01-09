@@ -6,10 +6,21 @@
     <description>Recent content on Chol Paul</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Chol Paul</copyright>
-    <lastBuildDate>Thu, 24 Oct 2019 13:08:45 +0300</lastBuildDate>
+    <lastBuildDate>Wed, 08 Jan 2020 21:50:06 +0300</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Explicit Arguments Indexes With Fmt Package</title>
+      <link>/blog/explicit-arguments-indexes-with-fmt-package/</link>
+      <pubDate>Wed, 08 Jan 2020 21:50:06 +0300</pubDate>
+      
+      <guid>/blog/explicit-arguments-indexes-with-fmt-package/</guid>
+      <description>Golang has a very handy package called fmt for formating data values.
+fmt.Printf(&amp;#34;Hello %s&amp;#34;, &amp;#34;world&amp;#34;) // Hello World But by default, the fmt family of functions work by successively applying args passed after the format string to matching format verbs by position. The position starts from index 1 instead of 0 probably because the format string is the zeroth argument to fmt functions.
+tablePrefix := &amp;#34;mydb&amp;#34; query := fmt.Sprintf(&amp;#34;SELECT %s_table1.*, %s_table2.</description>
+    </item>
     
     <item>
       <title>Deleting Slice Item</title>

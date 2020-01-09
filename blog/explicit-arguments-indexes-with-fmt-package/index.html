@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.63.0-DEV" />
+		<title>Explicit Arguments Indexes With Fmt Package - Chol Paul</title>
+
+		<meta name="description" content="Golang has a very handy package called fmt for formating data values.
+fmt.Printf(&#34;Hello %s&#34;, &#34;world&#34;) // Hello World But by default, the fmt family of functions work by successively applying args passed after the format string to matching format verbs by position. The position starts from index 1 instead of 0 probably because the format string is the zeroth argument to fmt functions.
+tablePrefix := &#34;mydb&#34; query := fmt.Sprintf(&#34;SELECT %s_table1.*, %s_table2.">
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/ocean.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+		
+		
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about">About</a></li><li><a href="/post/">Post</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Explicit Arguments Indexes With Fmt Package</h1>
+	<h5>
+		
+		<time datetime="2020-01-08 21:50:06 &#43;0300 EAT">Jan 08, 2020</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	<p>Golang has a very handy package called <code>fmt</code> for formating data values.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hello %s&#34;</span><span class="p">,</span> <span class="s">&#34;world&#34;</span><span class="p">)</span> <span class="c1">// Hello World
+</span></code></pre></div><p>But by default, the <code>fmt</code> family of functions work by successively applying args passed after the format string to matching format verbs by position. The position starts from index <code>1</code> instead of <code>0</code> probably because the format string is the zeroth argument to fmt functions.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">tablePrefix</span> <span class="o">:=</span> <span class="s">&#34;mydb&#34;</span>
+
+<span class="nx">query</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;SELECT %s_table1.*, %s_table2.id from %s_table1 left join %s_table2 on %s_table2.id = %s_table1.id;&#34;</span><span class="p">,</span><span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">,</span> <span class="nx">tablePrefix</span><span class="p">)</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+
+<span class="c1">// SELECT mydb_table1.*, mydb_table2.id from mydb_table1 left join mydb_table2 on mydb_table2.id = mydb_table1.id;
+</span></code></pre></div><p>while the above does achieve our desired outcome, it does so by duplicating code heavily. it would be better if <code>tablePrefix</code> didn't have to be passed several times to <code>fmt</code> function if the same data value is used by many format specifiers.</p>
+<p>Thankfully, <code>fmt</code> package designers saw a need for that and provided a way to avoid such a duplication of code.</p>
+<p>from the <a href="https://golang.org/pkg/fmt/">fmt documentation</a>.</p>
+<blockquote>
+<p><code>import &quot;fmt&quot;</code></p>
+<p>Explicit argument indexes:</p>
+<p>In Printf, Sprintf, and Fprintf, the default behavior is for each formatting verb to format successive arguments passed in the call. However,
+the notation <code>[n]</code> immediately before the verb indicates that the nth one-indexed argument is to be formatted instead.</p>
+</blockquote>
+<p>This means we can simplify the function call to look like below.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">tablePrefix</span> <span class="o">:=</span> <span class="s">&#34;mydb&#34;</span>
+
+<span class="nx">query</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;SELECT %[1]s_table1.*, %[1]s_table2.id from %[1]s_table1 left join %[1]s_table2 on %[1]s_table2.id = %[1]s_table1.id;&#34;</span><span class="p">,</span><span class="nx">tablePrefix</span><span class="p">)</span> <span class="c1">// notice only one data argument is needed if you use a position based trick
+</span><span class="c1"></span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
+
+<span class="c1">// SELECT mydb_table1.*, mydb_table2.id from mydb_table1 left join mydb_table2 on mydb_table2.id = mydb_table1.id;
+</span></code></pre></div><p>Such a simple tricks is easy to forget and I am putinng it here as a reminder to my self when I need it and I also hope someone in future may find it helpful too.</p>
+<p>Happy coding!</p>
+
+</article>
+<div class="about">
+    <img src="/img/author.jpeg" alt="Philip Chol Image" width="80" height="80">
+    <h3>Author: &nbsp;Chol Paul</h3>
+    <p> Chol&#39;s personal blog. He writes about software engineering, life and everything in between.</p>
+</div>
+
+<style>
+.about {
+    border: 3px solid #a1d0f6;
+    border-radius: 2px;
+    background-color: #f1f8fe;
+    padding: 14px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+.about img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    margin-right: 15px;
+    border: 1px solid #a1d0f6;
+}
+
+.about h3 {
+    margin: 2px 0 4px;
+    line-height: 20px;
+    font-family: lato,helvetica neue,Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 20px;
+    letter-spacing: 0;
+}
+
+.about p {
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: .9em;
+    clear: right;
+}
+
+</style>
+
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/blog/deleting-slice-item/">
+		<img class="icon-text" src="/img/prev.svg"/>Deleting Slice Item</a>
+
+
+</nav>
+
+
+
+
+	
+
+<script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="url"
+        label=""
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'cholthiblog';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:cholthipaul@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/cholthi/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://twitter.com/cholthipaul"><img class="icon-social" src="/img/twitter.svg" alt="Twitter"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2019 Chol Paul
+					
+					
+					| <a href="http://creativecommons.org/licenses/by/4.0/">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+		
+	</body>
+</html>
+
