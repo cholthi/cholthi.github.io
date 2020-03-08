@@ -6,10 +6,20 @@
     <description>Recent content on Chol Paul</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2019 Chol Paul</copyright>
-    <lastBuildDate>Wed, 08 Jan 2020 21:50:06 +0300</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2020 22:16:01 +0300</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fun With Golang Formatted Scanning</title>
+      <link>/blog/fun-with-golang-formatted-scanning/</link>
+      <pubDate>Sat, 07 Mar 2020 22:16:01 +0300</pubDate>
+      
+      <guid>/blog/fun-with-golang-formatted-scanning/</guid>
+      <description>Go&#39;s fmt package is the power house of formatted IO. It centralizes string formating routines for simple tasks as echoing to standard output to more complex such as sending formatted data to network IO. In fact, your first encounter with Go langange may involve use of fmt package.
+import &amp;#34;fmt&amp;#34; greeting := &amp;#34;Hello World&amp;#34; fmt.Println(greeting) // prints &amp;#34;Hello World&amp;#34; to stdout Receving user input is daunting and an area full of security holes.</description>
+    </item>
     
     <item>
       <title>Explicit Arguments Indexes With Fmt Package</title>

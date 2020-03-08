@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Hugo 0.63.0-DEV" />
+		<title>Fun With Golang Formatted Scanning - Chol Paul</title>
+
+		<meta name="description" content="Go&#39;s fmt package is the power house of formatted IO. It centralizes string formating routines for simple tasks as echoing to standard output to more complex such as sending formatted data to network IO. In fact, your first encounter with Go langange may involve use of fmt package.
+import &#34;fmt&#34; greeting := &#34;Hello World&#34; fmt.Println(greeting) // prints &#34;Hello World&#34; to stdout Receving user input is daunting and an area full of security holes.">
+
+
+		
+	
+		
+
+
+
+
+<link rel="stylesheet" href="/css/ui.css">
+
+	
+		
+
+		<link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway">
+
+		
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/ocean.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+		
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+		
+		
+	</head>
+
+<body>
+<header class="container no-print">
+	<div class="u-header">
+		<nav class="bar">
+	<ul><li>
+			<a href="/">
+				<img class="icon-text" src="/img/prev.svg"/>
+			</a>
+		</li><li><a href="/about">About</a></li><li><a href="/post/">Post</a></li></ul>
+</nav>
+
+	</div>
+</header>
+<main class="container">
+
+<article>
+	<header><hgroup id="brand">
+	<h1>Fun With Golang Formatted Scanning</h1>
+	<h5>
+		
+		<time datetime="2020-03-07 22:16:01 &#43;0300 EAT">Mar 07, 2020</time>
+		<span class="no-print">
+			<span>
+	</h5>
+	
+</hgroup>
+<hr class="sep" />
+</header>
+	<p>Go's <code>fmt</code> package is the power house of formatted IO. It centralizes string formating routines for simple tasks as echoing to standard output to more complex such as sending formatted data to network IO.
+In fact, your first encounter with Go langange may involve use of <code>fmt</code> package.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+
+<span class="nx">greeting</span> <span class="o">:=</span> <span class="s">&#34;Hello World&#34;</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">greeting</span><span class="p">)</span> <span class="c1">// prints &#34;Hello World&#34; to stdout
+</span></code></pre></div><p>Receving user input is daunting and an area full of security holes. Even harder is receiving formatted data.</p>
+<p>Today I want to talk about Go approach to scanning formatted data. which comes easy because of Go's static type system unlike dynamic langanges I have worked with previously, where a task would take few function calls and still look verbose.</p>
+<h4 id="scanning-data-from-stdout">Scanning data from StdOut</h4>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">var</span> <span class="nx">planet</span> <span class="kt">string</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">planet</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="nx">planet</span><span class="p">)</span>
+</code></pre></div><h4 id="scanning-formatted-user-input-from-string">Scanning formatted user input from string</h4>
+<p>Let say, you asked the users to provide their name and age in a certain string format, may be user configuration you read in a file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="c1">// format: &#34;name=yourname,age=yourage&#34;
+</span><span class="c1"></span><span class="kd">var</span> <span class="p">(</span>
+     <span class="nx">name</span> <span class="kt">string</span>
+     <span class="nx">age</span> <span class="kt">int</span>
+<span class="p">)</span>
+ <span class="nx">userInput</span> <span class="o">:=</span> <span class="s">&#34;name=Philip,age=35&#34;</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Sscanf</span><span class="p">(</span><span class="nx">userInput</span><span class="p">,</span> <span class="s">&#34;name=%s,age=%d&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="nx">name</span><span class="p">,</span><span class="o">&amp;</span><span class="nx">age</span><span class="p">)</span> <span class="c1">//Note Scanning from string instead of a io.Reader
+</span><span class="c1"></span><span class="nx">fmr</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span>
+</code></pre></div><p>To learn more about various formats you can read data, check <a href="https://golang.org/pkg/fmt/">fmt</a> documentation.</p>
+<p>Go has formats for any data type ranging from simple strings, integers, floats, slices, pointers etc.</p>
+
+</article>
+<div class="about">
+    <img src="/img/author.jpeg" alt="Philip Chol Image" width="80" height="80">
+    <h3>Author: &nbsp;Chol Paul</h3>
+    <p> Chol&#39;s personal blog. He writes about software engineering, life and everything in between.</p>
+</div>
+
+<style>
+.about {
+    border: 3px solid #a1d0f6;
+    border-radius: 2px;
+    background-color: #f1f8fe;
+    padding: 14px;
+    margin-bottom: 20px;
+    overflow: auto;
+}
+
+.about img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    margin-right: 15px;
+    border: 1px solid #a1d0f6;
+}
+
+.about h3 {
+    margin: 2px 0 4px;
+    line-height: 20px;
+    font-family: lato,helvetica neue,Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 20px;
+    letter-spacing: 0;
+}
+
+.about p {
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: .9em;
+    clear: right;
+}
+
+</style>
+
+<nav class="no-print post-nav">
+
+	<a class="prev-post" href="/blog/explicit-arguments-indexes-with-fmt-package/">
+		<img class="icon-text" src="/img/prev.svg"/>Explicit Arguments Indexes With Fmt Package</a>
+
+
+</nav>
+
+
+
+
+	
+
+<script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="url"
+        label=""
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+	<div id="disqus_thread" class="no-print"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'cholthiblog';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+			<hr class="sep" />
+		</main>
+		<footer class="container no-print">
+			<div class="u-footer">
+				
+<a href="mailto:cholthipaul@gmail.com"><img class="icon-social" src="/img/email.svg" alt="Email Me!"/></a>
+
+
+<a href="https://github.com/cholthi/"><img class="icon-social" src="/img/github.svg" alt="Github"/></a>
+
+
+<a href="https://twitter.com/cholthipaul"><img class="icon-social" src="/img/twitter.svg" alt="Twitter"/></a>
+
+<a href="/index.xml" target="_blank"><img class="icon-social" src="/img/feed.svg" alt="Feed"></a>
+
+				<p>
+					
+					Theme used: <a href="https://github.com/yursan9/manis-hugo-theme">Manis</a><br>
+					
+					
+					&copy; 2019 Chol Paul
+					
+					
+					| <a href="http://creativecommons.org/licenses/by/4.0/">License</a>
+					
+				</p>
+				
+				<a href="#brand">
+					<img class="icon-text" src="/img/toup.svg" alt="To Up"/>
+					<span>Back to Up</span>
+				</a>
+				
+			</div>
+		</footer>
+		
+		<script>hljs.initHighlightingOnLoad();</script>
+		
+	</body>
+</html>
+
